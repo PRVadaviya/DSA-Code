@@ -60,14 +60,34 @@ node* floycycle (node* head)
 
           if(slow == fast )                  //loop hase tiyare aa ...
           {
-               cout << slow -> data << endl ;
+               //cout << slow -> data << endl ;
                return slow ;
           }
 
      }
 
      return NULL ;
+}
 
+node* Getstartnode(node* head)
+{
+     if(head == NULL)
+     {
+          return NULL ;
+     }
+
+     node* slow = head ;
+     node* fast = floycycle(head);
+
+     while(slow != fast)
+     {
+          fast = fast ->next ;
+          slow = slow ->next ;
+     }
+
+     //cout << slow ->data << endl ;
+
+     return slow ;
 }
 
 int main()
@@ -76,6 +96,7 @@ int main()
 
      node* head = node1 ;
      node* tail = node1 ;
+     node* result = NULL ;
 
      print (head);
 
@@ -91,16 +112,13 @@ int main()
      insert(tail,50);
      print(head);
 
-     tail ->next = head ->next ;
+     tail ->next = head ->next->next ; // take differant type of input  
 
-     if(floycycle(head) != NULL)
-     {
-          cout << "yes" << endl ;
-     }
-     else
-     {
-          cout << "no" << endl ;
-     }
+     result = Getstartnode(head);
+     cout << result ->data << endl ;
 
      return 0;
 }
+
+
+

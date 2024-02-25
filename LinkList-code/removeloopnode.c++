@@ -37,7 +37,7 @@ void print (node* &tail)
      cout << endl ;
 }
 
-node* floycycle (node* head)
+node* floycycle (node* head)       //detect loop
 {
      node* slow = head ;
      node* fast = head ;
@@ -60,15 +60,56 @@ node* floycycle (node* head)
 
           if(slow == fast )                  //loop hase tiyare aa ...
           {
-               cout << slow -> data << endl ;
+               //cout << slow -> data << endl ;
                return slow ;
           }
 
      }
 
      return NULL ;
+}
+
+node* Getstartnode(node* head)         //get starting node 
+{
+     if(head == NULL)
+     {
+          return NULL ;
+     }
+
+     node* slow = head ;
+     node* fast = floycycle(head);
+
+     while(slow != fast)
+     {
+          fast = fast ->next ;
+          slow = slow ->next ;
+     }
+
+     //cout << slow ->data << endl ;
+
+     return slow ;
+}
+
+
+void removenode (node* head)
+{
+                //Getstartnode(head);
+     node* fast = floycycle(head) ;         // loop no koi node malse and Getstartnode() thi pan thase 
+     node* slow = Getstartnode(head);
+
+     while(fast->next != slow )
+     {
+          fast = fast -> next ;
+     }
+
+     if(fast != NULL)
+     {
+          fast ->next = NULL ;
+     }
+
 
 }
+
 
 int main()
 {
@@ -76,6 +117,8 @@ int main()
 
      node* head = node1 ;
      node* tail = node1 ;
+     node* result = NULL ;
+ 
 
      print (head);
 
@@ -91,16 +134,15 @@ int main()
      insert(tail,50);
      print(head);
 
-     tail ->next = head ->next ;
+     tail ->next = head ->next ; // take differant type of input  
 
-     if(floycycle(head) != NULL)
-     {
-          cout << "yes" << endl ;
-     }
-     else
-     {
-          cout << "no" << endl ;
-     }
+     result = Getstartnode(head);
+     cout << result ->data << endl ;
+
+     removenode(head);
+     print(head);
 
      return 0;
 }
+
+

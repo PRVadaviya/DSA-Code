@@ -18,6 +18,7 @@ class node
                }
 };
 
+
 void inserthead(node* &head , int d)
 {
      node* temp = new node(d);
